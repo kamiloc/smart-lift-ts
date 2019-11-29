@@ -1,15 +1,40 @@
 <html>
+  <head>
+    <title>Smart Lift</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
 
-<head>
-	<title>Parcel Sandbox</title>
-	<meta charset="UTF-8" />
-</head>
+  <body>
+    <div class="main-container">
+      <div id="canvas">
+        <p>Bienvenido a SmartLift</p>
 
-<body>
-	<div id="app"></div>
+        <div id="floorSelect">
+          <h4>Selecciona un piso:</h4>
+          <ul>
+            <li data-floor="0">GL</li>
+            <li data-floor="1">1</li>
+            <li data-floor="2">2</li>
+            <li data-floor="3">3</li>
+            <li data-floor="4">4</li>
+          </ul>
+        </div>
 
-	<script src="src/index.ts">
-	</script>
-</body>
+        <div id="building">
+          <div id="elevatorShaft">
+            <div id="elevatorContainer">
+              <div id="strings"></div>
+              <div id="elevator">
+                <div class="door active-left" id="leftDoor"></div>
+                <div class="door active-right" id="rightDoor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <script src="src/index.ts"></script>
+  </body>
 </html>

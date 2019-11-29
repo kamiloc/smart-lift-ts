@@ -4,6 +4,7 @@ import { LiftState } from "../types/lift";
 export default class ListController {
   liftArray: Array<Lift> = [];
   private floorNumber: number;
+  private liftsMoveTime: number = 500;
 
   constructor(floor: number) {
     this.floorNumber = floor;
@@ -22,11 +23,14 @@ export default class ListController {
     return this.liftArray.find(lift => lift.getCurrentFloor() === floorNumber);
   }
 
-  searchFloor(originFloor: number, destinationFloor: number): string {
+  searchFloor(originFloor: number, destinationFloor: number): void {
     let lift = this.getLiftInFloor(destinationFloor);
 
-    if (lift) return lift.index;
-    else {
+    if (lift) {
+      this.assignLift(lift.index);
+      lift.setDestinationFloor(destinationFloor);
+      return;
+    } else {
       const isUpperRequest: boolean = destinationFloor - originFloor > 0;
 
       let assignableLifts: Lift[] = this.liftArray.filter(lift =>
@@ -43,7 +47,8 @@ export default class ListController {
 
       if (assignableLifts.length) lift = assignableLifts[0];
 
-      return lift.index;
+      this.assignLift(lift.index);
+      lift.setDestinationFloor(destinationFloor);
     }
   }
 
@@ -51,6 +56,20 @@ export default class ListController {
     const selectedLift = this.liftArray.find(lift => lift.index === liftIndex);
 
     console.log(`Ascensor ${liftIndex} asignado al piso ${this.floorNumber}`);
-    selectedLift.addElementToFloorList(this.floorNumber);
+    selectedLift.setElementToFloorList(this.floorNumber);
+  }
+
+  sendMoveSignalToLift(lift: Lift): void {
+    const moveId = setInterval(() => {
+      let isUpperRequest: boolean | undefined;
+
+      if (lift.getSate() === LiftState.STOPPED) isUpperRequest = lift.getDestinationFloor() - lift.getCurrentFloor() > 0;
+      lift.moveOneFloor(isUpperRequest, onStopLift.bind(null, lift));
+    });
+
+    const onStopLift = (lift: Lift): void => {
+      console.log(`Ascensor ${lift.index} se detiene en el piso ${lift.getCurrentFloor()}`);
+      clearInterval(moveId);
+    };
   }
 }
