@@ -8,7 +8,8 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "jQuery": "1.7.4"
+    "gulp": "4.0.2",
+    "jquery": "3.4.0"
   },
   "devDependencies": {
     "parcel-bundler": "^1.6.1"

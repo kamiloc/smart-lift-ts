@@ -1,26 +1,37 @@
-import $ from "jQuery";
-let current = 0;
+// @ts-ignore
+const $jq = window.$;
 
-$(document).ready(function() {
-  $("#floorSelect li").click(function() {
-    let floor = parseInt($(this).data("floor"), 10),
-      height = floor * 20,
-      animate = Math.abs(current - floor) * 1000;
+class Main {
+  private currentFloor: number = 0;
 
-    if (floor === current) return;
+  private onSelectFloor(e: MouseEvent) {
+    let floor: number = parseInt($jq(e.target).data("floor"), 10),
+      height: number = floor * 20,
+      animate: number = Math.abs(this.currentFloor - floor) * 1000;
 
-    $("#rightDoor").removeClass("active-right");
-    $("#leftDoor").removeClass("active-left");
+    if (floor === this.currentFloor) return;
 
-    setTimeout(function() {
-      $("#elevatorContainer").css("transition", "all " + animate + "ms linear");
-      $("#elevatorContainer").css("bottom", height + "%");
-      current = floor;
+    $jq("#rightDoor").removeClass("active-right");
+    $jq("#leftDoor").removeClass("active-left");
 
-      setTimeout(function() {
-        $("#rightDoor").addClass("active-right");
-        $("#leftDoor").addClass("active-left");
-      }, animate);
-    }, 300);
-  });
-});
+    setTimeout(
+      function() {
+        $jq("#elevatorContainer").css("transition", "all " + animate + "ms linear");
+        $jq("#elevatorContainer").css("bottom", height + "%");
+        this.currentFloor = floor;
+
+        setTimeout(function() {
+          $jq("#rightDoor").addClass("active-right");
+          $jq("#leftDoor").addClass("active-left");
+        }, animate);
+      }.bind(this),
+      300
+    );
+  }
+
+  public init() {
+    $jq("#floorSelect li").click(this.onSelectFloor.bind(this));
+  }
+}
+
+$jq(document).ready(new Main().init());
