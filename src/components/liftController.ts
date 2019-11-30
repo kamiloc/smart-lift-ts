@@ -6,8 +6,9 @@ export default class ListController {
   private floorNumber: number;
   private liftsMoveTime: number = 500;
 
-  constructor(floor: number) {
+  constructor(floor: number = 0, lifts: Array<Lift> = []) {
     this.floorNumber = floor;
+    this.liftArray = lifts;
   }
 
   private orderLiftListByEnergy(liftList: Lift[], originFloor: number, destinationFloor: number) {

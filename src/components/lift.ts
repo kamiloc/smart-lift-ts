@@ -109,6 +109,21 @@ export default class Lift {
         break;
 
       case LiftState.UP:
+        if (this.currentFloor > originFloor) {
+          let minFloor = this.stops.filter(x => x < originFloor)[0];
+          energy += (originFloor - minFloor) * 0.5;
+          for (let i = 0; i < this.stops.length; i++) {
+            const element = this.stops[i];
+            if (element < originFloor) energy += 1;
+          }
+        }
+        if (this.currentFloor < originFloor) {
+          energy += (this.currentFloor - originFloor) * 0.5;
+          for (let i = 0; i < this.stops.length; i++) {
+            const element = this.stops[i];
+            if (element > originFloor) energy += 1;
+          }
+        }
         break;
 
       default:

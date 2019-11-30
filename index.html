@@ -2,26 +2,63 @@
   <head>
     <title>Smart Lift</title>
     <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="src/style.css" />
   </head>
 
   <body>
     <div class="main-container">
       <div id="canvas">
-        <p>Bienvenido a SmartLift</p>
+        <h1 class="title">Bienvenido a SmartLift</h1>
 
         <div id="floorSelect">
-          <h4>Selecciona un piso:</h4>
+          <select id="currentFloor">
+            <option selected value="0">Recepción</option>
+            <option value="1">Piso 1</option>
+            <option value="2">Piso 2</option>
+            <option value="3">Piso 3</option>
+            <option value="4">Piso 4</option>
+            <option value="5">Piso 5</option>
+            <option value="6">Piso 6</option>
+          </select>
+
+          <h4>Selecciona un piso</h4>
           <ul>
-            <li data-floor="0">GL</li>
+            <li data-floor="0">RC</li>
             <li data-floor="1">1</li>
             <li data-floor="2">2</li>
             <li data-floor="3">3</li>
             <li data-floor="4">4</li>
+            <li data-floor="5">5</li>
+            <li data-floor="6">6</li>
           </ul>
         </div>
 
-        <div id="building">
+        <div class="building" id="building-1" data-floor="0">
+          <div id="elevatorShaft">
+            <div id="elevatorContainer">
+              <div id="strings"></div>
+              <div id="elevator">
+                <div class="door active-left" id="leftDoor"></div>
+                <div class="door active-right" id="rightDoor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="building" id="building-2" data-floor="0">
+          <div id="elevatorShaft">
+            <div id="elevatorContainer">
+              <div id="strings"></div>
+              <div id="elevator">
+                <div class="door active-left" id="leftDoor"></div>
+                <div class="door active-right" id="rightDoor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="building" id="building-3" data-floor="0">
           <div id="elevatorShaft">
             <div id="elevatorContainer">
               <div id="strings"></div>
